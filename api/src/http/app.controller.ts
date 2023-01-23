@@ -1,8 +1,8 @@
-import { Controller, Get, ForbiddenException } from '@nestjs/common'
-import { AppService } from './app.service'
-import { Observable, map, catchError } from 'rxjs'
-import { HttpService } from '@nestjs/axios'
+import { Controller, Get } from '@nestjs/common'
+import { Observable } from 'rxjs'
 import { AxiosResponse } from 'axios'
+import { ApiService } from '../api/api.service'
+import { UsersService } from 'src/services/users.services'
 
 type Category = {
   record_id: string,
@@ -12,27 +12,17 @@ type Category = {
 @Controller()
 export class AppController {
   constructor(
-    private readonly appService: AppService,
-    private readonly httpService: HttpService
+    private readonly apiService: ApiService,
+    private readonly usersService: UsersService
   ) { }
 
-  @Get()
-  getHello(): string {
-    return this.appService.getHello()
+  @Get('users')
+  users() {
+    return this.usersService.listAll()
   }
 
   @Get('categories')
-  findAll(): Observable<AxiosResponse<Category[]>> {
-    return this.httpService.get('https://api.beuni.com.br/atlas/brands/v2/categories?reduced=true')
-      .pipe(
-        map((response) => {
-          return response.data
-        }),
-      )
-      .pipe(
-        catchError(() => {
-          throw new ForbiddenException('API not available')
-        }),
-      )
+  findAllCategories(): Observable<AxiosResponse<Category[]>> {
+    return this.apiService.findAllCategories()
   }
 }
