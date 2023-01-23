@@ -1,8 +1,9 @@
 import { Module } from '@nestjs/common'
-import { AppController } from './app.controller'
 import { UsersService } from '../services/users.services'
-import { DatabaseModule } from 'src/database/database.module'
-import { ApiModule } from 'src/api/api.module'
+import { DatabaseModule } from '../database/database.module'
+import { ApiModule } from '../api/api.module'
+import { UsersController } from './users/users.controller'
+import { ProductsController } from './products/products.controller'
 
 @Module({
   imports: [
@@ -10,6 +11,6 @@ import { ApiModule } from 'src/api/api.module'
     DatabaseModule,
   ],
   providers: [UsersService],
-  controllers: [AppController]
+  controllers: [UsersController, ProductsController]
 })
 export class HttpModule { }

@@ -1,8 +1,7 @@
 import { Controller, Get } from '@nestjs/common'
 import { Observable } from 'rxjs'
 import { AxiosResponse } from 'axios'
-import { ApiService } from '../api/api.service'
-import { UsersService } from 'src/services/users.services'
+import { ApiService } from '../../api/api.service'
 
 type Category = {
   record_id: string,
@@ -10,16 +9,10 @@ type Category = {
 }
 
 @Controller()
-export class AppController {
+export class ProductsController {
   constructor(
     private readonly apiService: ApiService,
-    private readonly usersService: UsersService
   ) { }
-
-  @Get('users')
-  users() {
-    return this.usersService.listAll()
-  }
 
   @Get('categories')
   findAllCategories(): Observable<AxiosResponse<Category[]>> {
