@@ -1,11 +1,6 @@
 import { Controller, Get } from '@nestjs/common'
 import { UsersService } from '../../services/users.services'
 
-type Category = {
-  record_id: string,
-  public_id: string
-}
-
 @Controller()
 export class UsersController {
   constructor(
