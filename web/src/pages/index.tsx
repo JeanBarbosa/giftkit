@@ -1,5 +1,9 @@
-import { SignInContainer } from '@/styles/pages/signIn'
+import { Button } from '@/components/Button'
 import Head from 'next/head'
+import Image from 'next/image'
+import siginBackground from '../assets/login.svg'
+import { FormWrapper, ImageContainer, SignInContainer } from '@/styles/pages/signIn'
+import { Input } from '@/components/Input'
 
 
 export default function Home() {
@@ -12,11 +16,27 @@ export default function Home() {
         <link rel="icon" href="/favicon.ico" />
       </Head>
       <SignInContainer>
-        <div>
+        <ImageContainer>
+          <Image src={siginBackground} width={520} height={480} alt="" />
+        </ImageContainer>
+        <FormWrapper>
+          <h1>
+            Não envie brindes, <br />
+            crie experiências! 🚀
+          </h1>
+
           <p>
-            beuni
+            Faça a gestão de todos os seus brindes <br />
+            e produtos personalizados de maneira <br />
+            mais simples na nossa plataforma! 🧡
           </p>
-        </div>
+
+          <form>
+            <Input placeholder='Nome' />
+            <Input placeholder='E-mail' />
+            <Button title="Entrar" type='submit' />
+          </form>
+        </FormWrapper>
       </SignInContainer>
     </>
   )
