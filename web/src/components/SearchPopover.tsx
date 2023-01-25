@@ -20,6 +20,12 @@ const ContextButtonTrigger = styled('div', {
   textAlign: 'center',
 })
 
+const PopoverArrow = styled(Popover.Arrow, {
+  height: '1rem',
+  width: '1.5rem',
+  fill: '#f8f8f8',
+})
+
 const SearchPopover = () => {
 
   return (
@@ -32,7 +38,7 @@ const SearchPopover = () => {
       <Popover.Portal>
         <StyledContent >
           <Catalog />
-          <Popover.Arrow height={8} width={16} />
+          <PopoverArrow />
         </StyledContent>
       </Popover.Portal>
     </Popover.Root>
