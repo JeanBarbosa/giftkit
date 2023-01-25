@@ -3,20 +3,20 @@ import { styled } from '@/styles'
 import * as Popover from '@radix-ui/react-popover'
 
 const StyledContent = styled(Popover.Content, {
-  minWidth: 130,
+  backgroundColor: "$orange700",
   borderRadius: '0.5rem',
+  minWidth: '50rem',
 })
 
 const ContextButtonTrigger = styled('div', {
   display: 'block',
   border: '2px white dashed',
   color: 'black',
-  borderRadius: '4px',
+  borderRadius: '0.25rem',
   borderColor: 'black',
-  fontSize: '15px',
   userSelect: 'none',
-  padding: '45px 0',
-  width: '300px',
+  padding: '2.8125rem 0',
+  width: '18.75rem',
   textAlign: 'center',
 })
 
