@@ -23,6 +23,7 @@ export const {
       green300: '#00b37e',
 
       orange700: '#F45E18',
+      blueDark: '#233040',
 
     },
 

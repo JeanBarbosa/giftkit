@@ -5,7 +5,6 @@ import siginBackground from '../assets/login.svg'
 import { FormWrapper, ImageContainer, SignInContainer } from '@/styles/pages/signIn'
 import { Input } from '@/components/Input'
 
-
 export default function Home() {
   return (
     <>
