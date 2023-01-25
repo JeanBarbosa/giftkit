@@ -1,5 +1,10 @@
+import { useState } from 'react'
 import { styled } from '@/styles'
 import * as RadioGroup from '@radix-ui/react-radio-group'
+import { useCategories } from '../services/hooks/useProducts'
+import { queryClient } from '../services/queryClient'
+import { api } from '../services/api'
+
 
 const RadioGroupRoot = styled(RadioGroup.Root, {
   display: 'flex',
@@ -52,35 +57,33 @@ const Label = styled('label', {
   paddingLeft: '15px',
 })
 
-const RadioGroupCategories = () => (
-  <Form>
-    <RadioGroupRoot defaultValue="default" aria-label="View density">
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <RadioGroupItem value="default" id="r1">
-          <RadioGroupIndicator />
-        </RadioGroupItem>
-        <Label htmlFor="r1">
-          Cadernos
-        </Label>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <RadioGroupItem value="comfortable" id="r2">
-          <RadioGroupIndicator />
-        </RadioGroupItem>
-        <Label htmlFor="r2">
-          Copos
-        </Label>
-      </div>
-      <div style={{ display: 'flex', alignItems: 'center' }}>
-        <RadioGroupItem value="compact" id="r3">
-          <RadioGroupIndicator />
-        </RadioGroupItem>
-        <Label htmlFor="r3">
-          Bolsas
-        </Label>
-      </div>
-    </RadioGroupRoot>
-  </Form>
-)
+function RadioGroupCategories() {
+
+  const [page, setPage] = useState(1)
+  const { data, isLoading, error } = useCategories(page)
+
+
+  return (
+    <Form>
+      <RadioGroupRoot defaultValue="default" aria-label="View density">
+        {
+          isLoading ? <p>carregando</p> : error ? <p>Falha ao obter dados da categoria</p> :
+            data?.categories.map((category, index) => {
+              return (
+                <div style={{ display: 'flex', alignItems: 'center' }}>
+                  <RadioGroupItem value="default" id={`r${index}`}>
+                    <RadioGroupIndicator />
+                  </RadioGroupItem>
+                  <Label htmlFor={`r${index}`}>
+                    {category.publicId}
+                  </Label>
+                </div>
+              )
+            })
+        }
+      </RadioGroupRoot>
+    </Form>
+  )
+}
 
 export default RadioGroupCategories
