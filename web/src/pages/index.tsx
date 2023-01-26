@@ -4,6 +4,7 @@ import Image from 'next/image'
 import siginBackground from '../assets/login.svg'
 import { FormWrapper, ImageContainer, SignInContainer } from '@/styles/pages/signIn'
 import { Input } from '@/components/Input'
+import { withSSRGuest } from '@/utils/withSSRGuest'
 
 export default function Home() {
   return (
@@ -40,3 +41,10 @@ export default function Home() {
     </>
   )
 }
+
+// Verifica se existe cookies/se usuário está logado e redirecionado para o dashboard
+export const getServerSideProps = withSSRGuest(async (context) => {
+  return {
+    props: {},
+  }
+})

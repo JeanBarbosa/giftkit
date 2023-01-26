@@ -1,5 +1,19 @@
-import axios from 'axios'
+import axios from "axios"
+import { GetServerSidePropsContext } from "next"
+import { parseCookies } from "nookies"
 
-export const api = axios.create({
-  baseURL: 'http://localhost:3333'
-})
+type Context = undefined | GetServerSidePropsContext
+
+
+export function setupApiClient(ctx: Context = undefined) {
+  let cookies = parseCookies(ctx)
+
+  const api = axios.create({
+    baseURL: "http://localhost:3333",
+    headers: {
+      Authorization: `Bearer ${cookies["surprisegift.token"]}`,
+    },
+  })
+
+  return api
+}

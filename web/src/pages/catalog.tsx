@@ -15,6 +15,7 @@ import {
 } from '@/styles/pages/catalog'
 
 import 'keen-slider/keen-slider.min.css'
+import { withSSRAuth } from '@/utils/withSSRAuth'
 
 
 interface ArrowProps {
@@ -138,3 +139,10 @@ export default function Catalog() {
     </CatalogContainer>
   )
 }
+
+// Verifica se  o usuário está autenticado
+export const getServerSideProps = withSSRAuth(async (ctx) => {
+  return {
+    props: {},
+  }
+})

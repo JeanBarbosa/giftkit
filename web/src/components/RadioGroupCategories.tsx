@@ -2,9 +2,6 @@ import { useState } from 'react'
 import { styled } from '@/styles'
 import * as RadioGroup from '@radix-ui/react-radio-group'
 import { useCategories } from '../services/hooks/useProducts'
-import { queryClient } from '../services/queryClient'
-import { api } from '../services/api'
-
 
 const RadioGroupRoot = styled(RadioGroup.Root, {
   display: 'flex',
