@@ -1,14 +1,13 @@
-import { Controller, Get } from '@nestjs/common'
+import { Controller, Get, Query } from '@nestjs/common'
 import { Observable } from 'rxjs'
 import { AxiosResponse } from 'axios'
-import { ApiService } from '../../api/api.service'
+import {
+  ApiService,
+  Category,
+  GetProductsResponse
+} from '../../api/api.service'
 
-type Category = {
-  record_id: string,
-  public_id: string
-}
-
-@Controller()
+@Controller('products')
 export class ProductsController {
   constructor(
     private readonly apiService: ApiService,
@@ -17,5 +16,15 @@ export class ProductsController {
   @Get('categories')
   findAllCategories(): Observable<AxiosResponse<Category[]>> {
     return this.apiService.findAllCategories()
+  }
+
+  @Get()
+  all(@Query('category') category): Observable<AxiosResponse<GetProductsResponse[]>> {
+
+    if (category) {
+      return this.apiService.findProductsByCategory(category)
+    }
+
+    return this.apiService.allProducts()
   }
 }
