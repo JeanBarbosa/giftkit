@@ -62,7 +62,6 @@ function RadioGroupCategories() {
   const [page, setPage] = useState(1)
   const { data, isLoading, error } = useCategories(page)
 
-
   return (
     <Form>
       <RadioGroupRoot defaultValue="default" aria-label="View density">
@@ -71,7 +70,7 @@ function RadioGroupCategories() {
             data?.categories.map((category, index) => {
               return (
                 <div style={{ display: 'flex', alignItems: 'center' }}>
-                  <RadioGroupItem value="default" id={`r${index}`}>
+                  <RadioGroupItem value={category.recordId} id={`r${index}`}>
                     <RadioGroupIndicator />
                   </RadioGroupItem>
                   <Label htmlFor={`r${index}`}>

@@ -2,6 +2,7 @@ import { Module } from '@nestjs/common'
 import { ConfigModule } from '@nestjs/config'
 import beuniConfig from './config/beuni.config'
 import { HttpModule } from './http/http.module'
+import appConfig from './config/app.config'
 
 @Module({
   imports: [
@@ -9,6 +10,7 @@ import { HttpModule } from './http/http.module'
       isGlobal: true,
       load: [
         beuniConfig,
+        appConfig
       ],
       envFilePath: ['.env'],
     }),
