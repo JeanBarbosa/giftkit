@@ -13,6 +13,7 @@ export const {
   theme: {
     colors: {
       white: '#FFF',
+      red: '#F75A68',
 
       gray900: '#121214',
       gray800: '#202024',
@@ -28,6 +29,7 @@ export const {
     },
 
     fontSizes: {
+      sm: '0.75rem',
       md: '1.125rem',
       lg: '1.25rem',
       xl: '1.5rem',

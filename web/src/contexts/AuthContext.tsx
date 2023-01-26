@@ -1,14 +1,16 @@
 import Router from "next/router"
-import { destroyCookie, setCookie } from "nookies"
+import { destroyCookie, parseCookies, setCookie } from "nookies"
 import {
   createContext,
   ReactNode,
   useCallback,
   useContext,
+  useEffect,
   useState
 } from "react"
 import { api } from "../services/apiClient"
 import { isBrowser } from "../utils/browser"
+import { AxiosError } from 'axios'
 
 type User = {
   id: string
@@ -38,13 +40,35 @@ export function signOut() {
   destroyCookie(null, "surprisegift.token")
 
   if (isBrowser) {
-    Router.push("/login")
+    Router.push("/")
   }
 }
 
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<User>({} as User)
   const isAuthenticaded = !!user
+
+  useEffect(() => {
+    const { "surprisegift.token": token } = parseCookies()
+
+    if (token) {
+      api
+        .get("/users/me")
+        .then((response) => {
+          const { name, email, id } = response.data
+          setUser({
+            id,
+            name,
+            email,
+          })
+        })
+        .catch((error: AxiosError) => {
+          if (isBrowser) {
+            signOut()
+          }
+        })
+    }
+  }, [])
 
   const signIn = useCallback(
     async ({ email, name }: SignInCredesentials) => {

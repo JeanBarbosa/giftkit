@@ -1,12 +1,39 @@
 import { Button } from '@/components/Button'
+import { SubmitHandler, useForm } from "react-hook-form"
+import { yupResolver } from '@hookform/resolvers/yup'
+import * as yup from "yup"
 import Head from 'next/head'
 import Image from 'next/image'
-import siginBackground from '../assets/login.svg'
-import { FormWrapper, ImageContainer, SignInContainer } from '@/styles/pages/signIn'
-import { Input } from '@/components/Input'
 import { withSSRGuest } from '@/utils/withSSRGuest'
+import siginBackground from '../assets/login.svg'
+import { Input } from '@/components/Input'
+import {
+  FormWrapper,
+  ImageContainer,
+  SignInContainer
+} from '@/styles/pages/signIn'
+import { useAuth } from '@/contexts/AuthContext'
+
+interface IFormInputs {
+  email: string
+  name: string
+}
+
+const schema = yup.object({
+  email: yup.string().email('E-mail não é válido').required('E-mail é obrigatório'),
+  name: yup.string().required('Nome é obrigatório'),
+}).required()
 
 export default function Home() {
+  const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
+    resolver: yupResolver(schema)
+  })
+  const { signIn } = useAuth()
+
+  function onSubmit(data: IFormInputs) {
+    signIn(data)
+  }
+
   return (
     <>
       <Head>
@@ -31,9 +58,13 @@ export default function Home() {
             mais simples na nossa plataforma! 🧡
           </p>
 
-          <form>
-            <Input placeholder='Nome' />
-            <Input placeholder='E-mail' />
+          <form onSubmit={handleSubmit(onSubmit)}>
+            <Input placeholder='Nome' {...register("name")} />
+            <span>{errors.name?.message}</span>
+
+            <Input placeholder='E-mail' {...register("email")} />
+            <span>{errors.email?.message}</span>
+
             <Button title="Entrar" type='submit' />
           </form>
         </FormWrapper>

@@ -6,8 +6,16 @@ import { Prisma } from '@prisma/client'
 export class UsersService {
   constructor(private readonly prismaService: PrismaService) { }
 
+  async getUserById(userId: string) {
+    return await this.prismaService.user.findUnique({
+      where: {
+        id: userId
+      }
+    })
+  }
+
   async listAll() {
-    return this.prismaService.user.findMany()
+    return await this.prismaService.user.findMany()
   }
 
   async create(data: Prisma.UserUncheckedCreateInput) {

@@ -51,6 +51,11 @@ export const FormWrapper = styled('div', {
 
     button: {
       marginTop: '1rem'
+    },
+
+    span: {
+      color: '$red',
+      fontSize: '$sm'
     }
   }
 })

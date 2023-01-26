@@ -13,7 +13,7 @@ globalStyles()
 export default function App({ Component, pageProps }: AppProps) {
 
   const { user } = useAuth()
-
+  console.log(user)
   return (
     <AuthProvider>
       <QueryClientProvider client={queryClient}>
