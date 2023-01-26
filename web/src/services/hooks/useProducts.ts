@@ -39,7 +39,7 @@ type GetCategoriesResponse = {
 }
 
 export async function getCategories(page: number): Promise<GetCategoriesResponse> {
-  const { data } = await api.get('categories', {
+  const { data } = await api.get('products/categories', {
     params: {
       page
     }
