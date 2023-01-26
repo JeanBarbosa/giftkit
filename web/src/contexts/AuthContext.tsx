@@ -86,7 +86,6 @@ export function AuthProvider({ children }: Props) {
           path: "/",
         })
 
-        // para não precisar ficar passando no header das requisições a api
         setUser({
           id: user.id,
           name: user.name,

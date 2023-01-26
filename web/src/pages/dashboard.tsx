@@ -1,9 +1,12 @@
+import { useAuth } from '@/contexts/AuthContext'
 import { withSSRAuth } from '@/utils/withSSRAuth'
 
 export default function Dashboard() {
+  const { user } = useAuth()
+
   return (
     <>
-      <h1>Dashboard</h1>
+      <h1>Dashboard: {user?.name}</h1>
     </>
   )
 }
