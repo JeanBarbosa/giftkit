@@ -1,6 +1,7 @@
 import { styled } from '@/styles'
 import * as Popover from '@radix-ui/react-popover'
 import Catalog from './catalog'
+import { useState } from 'react'
 
 const StyledContent = styled(Popover.Content, {
   backgroundColor: "$orange700",
@@ -27,7 +28,31 @@ const PopoverArrow = styled(Popover.Arrow, {
   fill: '#f8f8f8',
 })
 
-const SearchPopover = () => {
+type Product = {
+  id: string,
+  name: string,
+  urlPhoto: string,
+}
+
+type PopoverProps = {
+  onSelectedProduct: (product: Product) => void,
+}
+
+const SearchPopover = ({ onSelectedProduct }: PopoverProps) => {
+
+  const [data, setData] = useState<Product[]>([])
+
+  function addProduct(product: Product) {
+    console.log(product)
+  }
+
+  function removeProduct(productId: string) {
+    console.log(productId)
+  }
+
+  function handleSelectProduct(data: any) {
+    console.log(data)
+  }
 
   return (
     <Popover.Root>
@@ -37,8 +62,8 @@ const SearchPopover = () => {
         </ContextButtonTrigger>
       </Popover.Trigger>
       <Popover.Portal>
-        <StyledContent >
-          <Catalog />
+        <StyledContent>
+          <Catalog onSelectProduct={addProduct} />
           <PopoverArrow />
         </StyledContent>
       </Popover.Portal>

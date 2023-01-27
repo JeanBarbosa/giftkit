@@ -45,21 +45,14 @@ export const FormWrapper = styled('div', {
   form: {
     display: 'flex',
     flexDirection: 'column',
+
+    button: {
+      marginTop: '1rem',
+    }
   },
 
 })
 
-export const FormCardBoxWrapper = styled('div', {
-  display: 'flex',
-  flexDirection: 'column',
-  marginTop: '1rem',
-
-  form: {
-    display: 'flex',
-    flexDirection: 'column',
-  },
-
-})
 
 export const CardBoxWrapper = styled('div', {
   display: 'flex',

@@ -62,7 +62,7 @@ export const Card = styled('div', {
   display: 'grid',
   gridTemplateRows: 'max-content 200px 1fr',
   height: '200px',
-  width: '130px',
+  maxWidth: '130px',
   backgroundColor: '$white',
   borderRadius: '0.4rem',
 

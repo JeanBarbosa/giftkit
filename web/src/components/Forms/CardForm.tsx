@@ -1,7 +1,7 @@
 import { useFormData } from '@/contexts/FormContext'
 import { Button } from '../Button'
 import SearchPopover from '../SearchPopover'
-import { FormWrapper, CardBoxWrapper, FormCardBoxWrapper } from '@/styles/components/formSteps'
+import { FormWrapper, CardBoxWrapper } from '@/styles/components/formSteps'
 
 type CardFormProps = {
   formStep: number,
@@ -24,15 +24,16 @@ export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
   }
 
   return (
-    <FormCardBoxWrapper className={formStep === 1 ? 'showForm' : 'hideForm'}>
+    <FormWrapper className={formStep === 1 ? 'showForm' : 'hideForm'}>
       <h2>Adicione os produtos nos cards</h2>
       <CardBoxWrapper>
-        <SearchPopover />
-        <SearchPopover />
-        <SearchPopover />
+        <SearchPopover onSelectedProduct={(data) => console.log(data)} />
+        <SearchPopover onSelectedProduct={(data) => console.log(data)} />
+        <SearchPopover onSelectedProduct={(data) => console.log(data)} />
       </CardBoxWrapper>
-
-      <Button title='Próximo' onClick={handleSubmit} />
-    </FormCardBoxWrapper>
+      <form>
+        <Button title='Próximo' onClick={handleSubmit} />
+      </form>
+    </FormWrapper>
   )
 }

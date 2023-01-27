@@ -31,7 +31,10 @@ type Category = {
 }
 
 type GetProductsResponse = {
-  products: Product[]
+  products: Product[],
+  total: number,
+  userCart: object,
+  userWishlist: object,
 }
 
 type GetCategoriesResponse = {
@@ -64,9 +67,7 @@ export async function getProducts(page: number): Promise<GetProductsResponse> {
     }
   })
 
-  return {
-    products: data.products
-  }
+  return data
 }
 
 export function useProducts(page: number) {
