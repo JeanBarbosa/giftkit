@@ -3,9 +3,9 @@ import { styled } from ".."
 export const Container = styled('div', {
   display: 'flex',
   flexDirection: 'column',
-  alignItems: 'flex-start',
-  justifyContent: 'center',
+  alignItems: 'center',
   //minHeight: '100vh',
+  minHeight: '50rem'
 })
 
 export const Header = styled('header', {
@@ -13,9 +13,9 @@ export const Header = styled('header', {
   flexDirection: 'row',
   alignItems: 'center',
   justifyContent: 'space-between',
-  padding: '2rem 0',
+  padding: '1rem 0',
   width: '100%',
-  maxWidth: 1180,
+  maxWidth: 1080,
   margin: '0 auto',
 
   span: {

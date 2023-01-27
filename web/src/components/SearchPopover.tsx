@@ -16,7 +16,8 @@ const ContextButtonTrigger = styled('div', {
   borderColor: 'black',
   userSelect: 'none',
   padding: '2.8125rem 0',
-  width: '18.75rem',
+  width: '8rem',
+  height: '8rem',
   textAlign: 'center',
 })
 
@@ -32,7 +33,7 @@ const SearchPopover = () => {
     <Popover.Root>
       <Popover.Trigger asChild>
         <ContextButtonTrigger>
-          itens
+          click para adicionar
         </ContextButtonTrigger>
       </Popover.Trigger>
       <Popover.Portal>

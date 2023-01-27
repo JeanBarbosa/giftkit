@@ -1,5 +1,7 @@
 import { useFormData } from '@/contexts/FormContext'
 import { Button } from '../Button'
+import SearchPopover from '../SearchPopover'
+import { FormWrapper, CardBoxWrapper, FormCardBoxWrapper } from '@/styles/components/formSteps'
 
 type CardFormProps = {
   formStep: number,
@@ -10,9 +12,9 @@ type CardFormProps = {
 export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
   const { setFormValues } = useFormData()
 
-  async function handleSubmit(data: any, e: any) {
+  async function handleSubmit() {
     try {
-      e.preventDefault()
+      const data = {}
 
       setFormValues(data)
       nextFormStep()
@@ -22,15 +24,15 @@ export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
   }
 
   return (
-    <div className={formStep === 1 ? 'showForm' : 'hideForm'}>
+    <FormCardBoxWrapper className={formStep === 1 ? 'showForm' : 'hideForm'}>
       <h2>Adicione os produtos nos cards</h2>
+      <CardBoxWrapper>
+        <SearchPopover />
+        <SearchPopover />
+        <SearchPopover />
+      </CardBoxWrapper>
 
-      <form onSubmit={(e) => handleSubmit(e.target, e)}>
-        <div>
-          <input name="address" type="address" />
-        </div>
-        <Button title='Próximo' type="submit" />
-      </form>
-    </div>
+      <Button title='Próximo' onClick={handleSubmit} />
+    </FormCardBoxWrapper>
   )
 }

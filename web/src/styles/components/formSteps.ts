@@ -48,3 +48,22 @@ export const FormWrapper = styled('div', {
   },
 
 })
+
+export const FormCardBoxWrapper = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  marginTop: '1rem',
+
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+  },
+
+})
+
+export const CardBoxWrapper = styled('div', {
+  display: 'flex',
+  flexDirection: 'row',
+  gap: '1rem',
+  marginTop: '1rem',
+})

@@ -32,8 +32,6 @@ export function SurpriseForm({ formStep, nextFormStep }: SurpriseFormProps) {
 
   async function handleNextForm({ ...data }: IFormInputs) {
     try {
-      //e.preventDefault()
-
       setFormValues(data)
       nextFormStep()
     } catch (err) {
