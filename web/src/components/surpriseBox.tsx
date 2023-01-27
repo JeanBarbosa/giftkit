@@ -11,10 +11,3 @@ export default function SurpriseBox() {
     </>
   )
 }
-
-// Verifica se  o usuário está autenticado
-export const getServerSideProps = withSSRAuth(async (ctx) => {
-  return {
-    props: {},
-  }
-})

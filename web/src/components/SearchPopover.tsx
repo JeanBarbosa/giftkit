@@ -1,6 +1,6 @@
-import Catalog from '@/pages/catalog'
 import { styled } from '@/styles'
 import * as Popover from '@radix-ui/react-popover'
+import Catalog from './catalog'
 
 const StyledContent = styled(Popover.Content, {
   backgroundColor: "$orange700",
