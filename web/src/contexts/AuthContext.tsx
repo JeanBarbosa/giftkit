@@ -36,14 +36,6 @@ type Props = {
 
 export const AuthContext = createContext({} as AuthContextData)
 
-export function signOut() {
-  destroyCookie(null, "surprisegift.token")
-
-  if (isBrowser) {
-    Router.push("/")
-  }
-}
-
 export function AuthProvider({ children }: Props) {
   const [user, setUser] = useState<User>({} as User)
   const isAuthenticaded = !!user
@@ -97,12 +89,22 @@ export function AuthProvider({ children }: Props) {
 
         Router.push("/dashboard")
       } catch (error) {
-        console.log(error)
-        Router.push("/")
+        throw error
+      } finally {
+        console.log('...')
       }
     },
     []
   )
+
+  function signOut() {
+    destroyCookie(null, "surprisegift.token")
+    setUser({} as User)
+
+    if (isBrowser) {
+      Router.push("/")
+    }
+  }
 
   return (
     <AuthContext.Provider

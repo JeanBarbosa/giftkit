@@ -13,6 +13,7 @@ import {
   SignInContainer
 } from '@/styles/pages/signIn'
 import { useAuth } from '@/contexts/AuthContext'
+import { useState } from 'react'
 
 interface IFormInputs {
   email: string
@@ -25,13 +26,21 @@ const schema = yup.object({
 }).required()
 
 export default function Home() {
+  const [isLoading, setIsLoading] = useState(false)
   const { register, handleSubmit, formState: { errors } } = useForm<IFormInputs>({
     resolver: yupResolver(schema)
   })
   const { signIn } = useAuth()
 
-  function onSubmit(data: IFormInputs) {
-    signIn(data)
+  async function onSubmit(data: IFormInputs) {
+    try {
+      setIsLoading(true)
+      await signIn(data)
+    } catch (error) {
+      alert('Não foi possível entrar. Tente novamente mais tarde.')
+    } finally {
+      setIsLoading(false)
+    }
   }
 
   return (
@@ -65,7 +74,7 @@ export default function Home() {
             <Input placeholder='E-mail' {...register("email")} />
             <span>{errors.email?.message}</span>
 
-            <Button title="Entrar" type='submit' />
+            <Button disabled={isLoading} title="Entrar" type='submit' />
           </form>
         </FormWrapper>
       </SignInContainer>
