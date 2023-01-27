@@ -1,13 +1,11 @@
 import { styled } from '..'
 
 export const ButtonWrapper = styled('button', {
-  marginTop: 'auto',
-  backgroundColor: '$green500',
+  backgroundColor: '$orange700',
   border: 0,
   color: '$white',
   borderRadius: 8,
   padding: '1.25rem',
-  cursor: 'pointer',
   fontWeight: 'bold',
   fontSize: '$md',
 
@@ -17,6 +15,6 @@ export const ButtonWrapper = styled('button', {
   },
 
   '&:not(:disabled):hover': {
-    backgroundColor: '$green300',
+    filter: 'brightness(90%)',
   }
 })

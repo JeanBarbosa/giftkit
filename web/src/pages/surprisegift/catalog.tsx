@@ -4,7 +4,7 @@ import { Input } from '@/components/Input'
 import RadioGroupCategories from '@/components/RadioGroupCategories'
 import Image from 'next/image'
 import { useKeenSlider } from 'keen-slider/react'
-import productDefaultImg from "../assets/productDefault.jpg"
+import productDefaultImg from "../../assets/productDefault.jpg"
 import {
   CatalogContainer,
   CategoriesContainer,
