@@ -4,7 +4,10 @@ import { Input } from '@/components/Input'
 import RadioGroupCategories from '@/components/RadioGroupCategories'
 import Image from 'next/image'
 import { useKeenSlider } from 'keen-slider/react'
-import productDefaultImg from "../assets/productDefault.jpg"
+import 'keen-slider/keen-slider.min.css'
+import { useProducts } from '@/services/hooks/useProducts'
+import { Plus } from 'phosphor-react'
+import { formatPrice } from '@/utils/formatPrice'
 import {
   CatalogContainer,
   CategoriesContainer,
@@ -13,9 +16,7 @@ import {
   Card,
   NavigationWrapper
 } from '@/styles/pages/catalog'
-
-import 'keen-slider/keen-slider.min.css'
-import { useProducts } from '@/services/hooks/useProducts'
+import Link from 'next/link'
 
 type ArrowProps = {
   isDisabled?: boolean,
@@ -69,53 +70,52 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
       <ProductsContainer>
         <Input placeholder='pesquisar pelo nome' />
         <NavigationWrapper>
-          <CardsContainer ref={sliderRef} className="keen-slider">
-            {
-              data?.products.map((product) => {
-                return (
-                  <Card key={product.id} className="keen-slider__slide">
-                    <Image src={product.image[0].url} alt="Avatar" height={100} width={100} />
-                    <div>
-                      <h4><b>{product.name}</b></h4>
-                      <p>{product.price}</p>
-                      <Button title='add' />
-                    </div>
-                  </Card>
-                )
-              })
-            }
+          {isLoading ? <p>carregando</p> : error ? <p>Falha ao obter dados dos produtos</p> : (
+            <CardsContainer ref={sliderRef} className="keen-slider">
+              {
+                data?.products.map((product) => {
+                  return (
+                    <Card key={product.id} className="keen-slider__slide">
+                      <Image src={product.image[0].url} alt="Avatar" height={100} width={100} />
+                      <div className='cardBody'>
+                        <h4>
+                          {product.name}
+                        </h4>
+                        <span>A partir de R$ {product.price.toFixed(2)}</span>
+                      </div>
+                      <footer>
+                        <Link href="/">Detalhes</Link>
+                        <button>
+                          <Plus size={20} weight="light" color='white' />
+                        </button>
+                      </footer>
+                    </Card>
+                  )
+                })
+              }
 
-            <Card className="keen-slider__slide">
-              <Image loader={({ src }) => src} src={productDefaultImg} alt="Avatar" height={100} width={100} />
-              <div>
-                <h4><b>John Doe</b></h4>
-                <p>Architect & Engineer</p>
-                <Button title='add' />
-              </div>
-            </Card>
+              {loaded && instanceRef.current && (
+                <>
+                  <Arrow
+                    left
+                    onClick={(e: any) =>
+                      e.stopPropagation() || instanceRef.current?.prev()
+                    }
+                    isDisabled={currentSlide === 0}
+                  />
 
-            {loaded && instanceRef.current && (
-              <>
-                <Arrow
-                  left
-                  onClick={(e: any) =>
-                    e.stopPropagation() || instanceRef.current?.prev()
-                  }
-                  isDisabled={currentSlide === 0}
-                />
-
-                <Arrow
-                  onClick={(e: any) =>
-                    e.stopPropagation() || instanceRef.current?.next()
-                  }
-                  isDisabled={
-                    currentSlide ===
-                    instanceRef.current.track.details.slides.length - 1
-                  }
-                />
-              </>
-            )}
-          </CardsContainer>
+                  <Arrow
+                    onClick={(e: any) =>
+                      e.stopPropagation() || instanceRef.current?.next()
+                    }
+                    isDisabled={
+                      currentSlide ===
+                      instanceRef.current.track.details.slides.length - 1
+                    }
+                  />
+                </>
+              )}
+            </CardsContainer>)}
         </NavigationWrapper>
       </ProductsContainer>
     </CatalogContainer>
