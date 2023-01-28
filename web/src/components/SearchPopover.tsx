@@ -45,12 +45,8 @@ const SearchPopover = ({ onChangeList }: PopoverProps) => {
     setData(products)
   }
 
-  function handleSelectProduct(data: any) {
-    console.log(data)
-  }
-
   useEffect(() => {
-    //onChangeList(data)
+    onChangeList(data)
   }, [data])
 
   return (
