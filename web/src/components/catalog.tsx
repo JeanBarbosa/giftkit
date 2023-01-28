@@ -1,5 +1,4 @@
 import { useState } from 'react'
-import { Button } from '@/components/Button'
 import { Input } from '@/components/Input'
 import RadioGroupCategories from '@/components/RadioGroupCategories'
 import Image from 'next/image'
@@ -7,7 +6,6 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import { useProducts } from '@/services/hooks/useProducts'
 import { Plus } from 'phosphor-react'
-import { formatPrice } from '@/utils/formatPrice'
 import {
   CatalogContainer,
   CategoriesContainer,
@@ -15,7 +13,7 @@ import {
   CardsContainer,
   Card,
   NavigationWrapper
-} from '@/styles/pages/catalog'
+} from '@/styles/components/catalog'
 import Link from 'next/link'
 
 type ArrowProps = {
@@ -25,7 +23,7 @@ type ArrowProps = {
 }
 
 type Product = {
-  id: string,
+  id: number,
   name: string,
   urlPhoto: string,
 }
@@ -59,7 +57,7 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
   })
 
   function handleSelectProduct(product: Product) {
-
+    onSelectProduct(product)
   }
 
   return (
@@ -76,7 +74,7 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
                 data?.products.map((product) => {
                   return (
                     <Card key={product.id} className="keen-slider__slide">
-                      <Image src={product.image[0].url} alt="Avatar" height={100} width={100} />
+                      <Image src={product.image[0].url} alt="" height={100} width={100} />
                       <div className='cardBody'>
                         <h4>
                           {product.name}
@@ -85,7 +83,11 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
                       </div>
                       <footer>
                         <Link href="/">Detalhes</Link>
-                        <button>
+                        <button onClick={() => handleSelectProduct({
+                          id: product.id,
+                          name: product.name,
+                          urlPhoto: product.image[0].url
+                        })}>
                           <Plus size={20} weight="light" color='white' />
                         </button>
                       </footer>

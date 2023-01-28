@@ -1,73 +1,91 @@
-import { styled } from '@/styles'
 import * as Popover from '@radix-ui/react-popover'
 import Catalog from './catalog'
-import { useState } from 'react'
-
-const StyledContent = styled(Popover.Content, {
-  backgroundColor: "$orange700",
-  borderRadius: '0.5rem',
-  minWidth: '50rem',
-})
-
-const ContextButtonTrigger = styled('div', {
-  display: 'block',
-  border: '2px white dashed',
-  color: 'black',
-  borderRadius: '0.25rem',
-  borderColor: 'black',
-  userSelect: 'none',
-  padding: '2.8125rem 0',
-  width: '8rem',
-  height: '8rem',
-  textAlign: 'center',
-})
-
-const PopoverArrow = styled(Popover.Arrow, {
-  height: '1rem',
-  width: '1.5rem',
-  fill: '#f8f8f8',
-})
+import { useEffect, useState } from 'react'
+import { Trash, X } from 'phosphor-react'
+import {
+  ContextButtonTrigger,
+  PopoverArrow,
+  PopoverClose,
+  PopoverContainer,
+  PopoverListProducts,
+  ProductSelected,
+  StyledContent
+} from '@/styles/components/searchPopover'
+import Image from 'next/image'
 
 type Product = {
-  id: string,
+  id: number,
   name: string,
   urlPhoto: string,
 }
 
 type PopoverProps = {
-  onSelectedProduct: (product: Product) => void,
+  onChangeList: (products: Product[]) => void,
 }
 
-const SearchPopover = ({ onSelectedProduct }: PopoverProps) => {
+const SearchPopover = ({ onChangeList }: PopoverProps) => {
 
   const [data, setData] = useState<Product[]>([])
 
   function addProduct(product: Product) {
-    console.log(product)
+    //TODO fecha o popover
+
+    if (data.length > 2) {
+      return alert("Card cheio")
+    }
+
+    setData(data => [...data, product])
   }
 
-  function removeProduct(productId: string) {
-    console.log(productId)
+  function removeProduct(index: number) {
+    const products = data.filter((product, position) =>
+      position !== index
+    )
+
+    setData(products)
   }
 
   function handleSelectProduct(data: any) {
     console.log(data)
   }
 
+  useEffect(() => {
+    //onChangeList(data)
+  }, [data])
+
   return (
-    <Popover.Root>
-      <Popover.Trigger asChild>
-        <ContextButtonTrigger>
-          click para adicionar
-        </ContextButtonTrigger>
-      </Popover.Trigger>
-      <Popover.Portal>
-        <StyledContent>
-          <Catalog onSelectProduct={addProduct} />
-          <PopoverArrow />
-        </StyledContent>
-      </Popover.Portal>
-    </Popover.Root>
+    <PopoverContainer>
+      <PopoverListProducts>
+        {data.length === 0 && "Nenhum presente ☹️"}
+        {data.map((product, index) => {
+          return (
+            <ProductSelected key={`${product.id}${index}`}>
+              <Image src={product.urlPhoto} alt="" height={80} width={80} />
+              <span>{product.name}</span>
+              <button onClick={() => removeProduct(index)}>
+                <Trash size={16} weight="light" color='red' />
+              </button>
+            </ProductSelected>
+          )
+        })}
+      </PopoverListProducts>
+      <Popover.Root>
+        <Popover.Trigger asChild>
+          <ContextButtonTrigger disabled={data.length > 2 ? true : false}>
+            adicionar
+          </ContextButtonTrigger>
+        </Popover.Trigger>
+        <Popover.Portal>
+          <StyledContent>
+            <Catalog onSelectProduct={addProduct} />
+            <PopoverClose aria-label="Close">
+              <X size={32} weight="light" />
+            </PopoverClose>
+            <PopoverArrow />
+          </StyledContent>
+        </Popover.Portal>
+      </Popover.Root>
+    </PopoverContainer>
   )
 }
 

@@ -27,9 +27,9 @@ export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
     <FormWrapper className={formStep === 1 ? 'showForm' : 'hideForm'}>
       <h2>Adicione os produtos nos cards</h2>
       <CardBoxWrapper>
-        <SearchPopover onSelectedProduct={(data) => console.log(data)} />
-        <SearchPopover onSelectedProduct={(data) => console.log(data)} />
-        <SearchPopover onSelectedProduct={(data) => console.log(data)} />
+        <SearchPopover onChangeList={(data) => console.log(data)} />
+        <SearchPopover onChangeList={(data) => console.log(data)} />
+        <SearchPopover onChangeList={(data) => console.log(data)} />
       </CardBoxWrapper>
       <form>
         <Button title='Próximo' onClick={handleSubmit} />
