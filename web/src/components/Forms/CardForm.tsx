@@ -22,12 +22,22 @@ type Deck = {
 }
 
 export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
+  const [isDisabled, setIsDisabled] = useState(true)
   const { setFormValues } = useFormData()
   const [deck, setDeck] = useState<Deck>({
     cardOne: [],
     cardTwo: [],
     cardThree: []
   } as Deck)
+
+  function validateDeck() {
+    //verifica se os cards tenha pelo menos um produto inserido
+    if (deck.cardOne.length > 0 && deck.cardTwo.length > 0 && deck.cardThree.length > 0) {
+      setIsDisabled(false)
+    } else {
+      setIsDisabled(true)
+    }
+  }
 
   function addCards(products: Product[], deckKey: number) {
     if (deckKey === 1) {
@@ -50,17 +60,16 @@ export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
         return deck
       })
     }
+
+    validateDeck()
   }
 
   async function handleSubmit() {
     try {
-
-      setFormValues({
-        deck
-      })
+      setFormValues({ deck })
       nextFormStep()
     } catch (err) {
-
+      console.log('Error ao salvar o presente')
     }
   }
 
@@ -73,7 +82,9 @@ export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
         <SearchPopover onChangeList={(data) => addCards(data, 3)} />
       </CardBoxWrapper>
 
-      <Button title='Próximo' onClick={handleSubmit} />
+      <form onSubmit={(e) => e.preventDefault()}>
+        <Button disabled={isDisabled} title='Salvar e Enviar' onClick={handleSubmit} />
+      </form>
 
     </FormWrapper>
   )

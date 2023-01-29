@@ -53,10 +53,34 @@ export const FormWrapper = styled('div', {
 
 })
 
-
 export const CardBoxWrapper = styled('div', {
   display: 'flex',
   flexDirection: 'row',
   gap: '1rem',
   marginTop: '1rem',
+})
+
+
+export const CompletedContainer = styled('div', {
+  display: 'flex',
+  flexDirection: 'column',
+  alignItems: 'center',
+  justifyContent: 'center',
+  gap: '0.5rem',
+  marginTop: '1rem',
+  padding: '2rem',
+  textAlign: 'center',
+
+  a: {
+    marginTop: '1rem'
+  },
+
+  form: {
+    display: 'flex',
+    flexDirection: 'column',
+
+    button: {
+      marginTop: '1rem',
+    }
+  },
 })

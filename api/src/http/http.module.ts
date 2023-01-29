@@ -3,13 +3,13 @@ import { DatabaseModule } from '../database/database.module'
 import { ApiModule } from '../api/api.module'
 import { MailerModule } from '@nestjs-modules/mailer'
 import { UsersService } from '../services/users.services'
-import { ScratchcardsService } from 'src/services/scratchcards.services'
+import { SurprisegiftsService } from 'src/services/surprisegifts.services'
 import { MailService } from '../mail/mail.service'
 import { MailConfigService } from 'src/mail/mail-config.service'
 
 import { UsersController } from './users/users.controller'
 import { ProductsController } from './products/products.controller'
-import { ScratchcardsController } from './scratchcards/scratchcards.controller'
+import { SurprisegiftsController } from './scratchcards/scratchcards.controller'
 
 @Module({
   imports: [
@@ -20,13 +20,13 @@ import { ScratchcardsController } from './scratchcards/scratchcards.controller'
     }),],
   providers: [
     MailService,
-    ScratchcardsService,
+    SurprisegiftsService,
     UsersService,
   ],
   controllers: [
     UsersController,
     ProductsController,
-    ScratchcardsController,
+    SurprisegiftsController,
   ]
 })
 export class HttpModule { }

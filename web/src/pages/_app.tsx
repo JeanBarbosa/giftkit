@@ -9,7 +9,7 @@ import { queryClient } from '../services/queryClient'
 import { AuthProvider } from '@/contexts/AuthContext'
 import { Profile } from '@/components/Profile'
 import FormProvider from '@/contexts/FormContext'
-import '../styles/presente.scss'
+import '../styles/pages/surprisebox.scss'
 
 globalStyles()
 

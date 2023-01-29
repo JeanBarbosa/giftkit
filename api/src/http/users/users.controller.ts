@@ -10,7 +10,7 @@ export class UsersController {
   ) { }
 
   @Get('me')
-  async me(@CurrentUserID() userId: any) {
+  async me(@CurrentUserID() userId: string) {
     return await this.usersService.getUserById(userId)
   }
 

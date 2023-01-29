@@ -28,8 +28,8 @@ export default function Dashboard() {
           </h1>
 
           <p>
-            Envie scratchcard para seus amigos <br />
-            escolherem entre 3 opções de kit da beuni 🧡
+            Envie presentes surpresa para seus amigos <br />
+            escolherem entre 3 opções de kit da Beuni 🧡
           </p>
 
           <Button title='criar presente surpresa' onClick={handleNewSurpriseGift} />

@@ -6,28 +6,29 @@ CREATE TABLE "User" (
 );
 
 -- CreateTable
-CREATE TABLE "Scratchcard" (
+CREATE TABLE "Surprisegift" (
     "id" TEXT NOT NULL PRIMARY KEY,
     "userId" TEXT NOT NULL,
     "emailRecipient" TEXT NOT NULL,
     "title" TEXT NOT NULL,
     "description" TEXT,
     "selectedCardID" TEXT,
-    CONSTRAINT "Scratchcard_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Surprisegift_userId_fkey" FOREIGN KEY ("userId") REFERENCES "User" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "Card" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "scratchcardId" TEXT NOT NULL,
+    "surprisegiftId" TEXT NOT NULL,
     "photo" TEXT NOT NULL,
-    CONSTRAINT "Card_scratchcardId_fkey" FOREIGN KEY ("scratchcardId") REFERENCES "Scratchcard" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
+    CONSTRAINT "Card_surprisegiftId_fkey" FOREIGN KEY ("surprisegiftId") REFERENCES "Surprisegift" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );
 
 -- CreateTable
 CREATE TABLE "Item" (
     "id" TEXT NOT NULL PRIMARY KEY,
-    "productId" TEXT NOT NULL,
+    "productId" INTEGER NOT NULL,
+    "name" TEXT NOT NULL,
     "cardId" TEXT NOT NULL,
     CONSTRAINT "Item_cardId_fkey" FOREIGN KEY ("cardId") REFERENCES "Card" ("id") ON DELETE RESTRICT ON UPDATE CASCADE
 );

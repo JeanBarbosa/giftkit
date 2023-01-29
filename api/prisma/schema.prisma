@@ -11,13 +11,13 @@ datasource db {
 }
 
 model User {
-  id           String        @id() @default(uuid())
-  email        String        @unique
-  name         String?
-  scratchcards Scratchcard[]
+  id            String         @id() @default(uuid())
+  email         String         @unique
+  name          String?
+  surprisegifts Surprisegift[]
 }
 
-model Scratchcard {
+model Surprisegift {
   id     String @id() @default(uuid())
   userId String
   user   User   @relation(fields: [userId], references: [id])
@@ -32,16 +32,17 @@ model Scratchcard {
 }
 
 model Card {
-  id            String       @id() @default(uuid())
-  scratchcardId String
-  scratchcard   Scratchcard? @relation(fields: [scratchcardId], references: [id])
-  photo         String
-  items         Item[]
+  id             String        @id() @default(uuid())
+  surprisegiftId String
+  surprisegift   Surprisegift? @relation(fields: [surprisegiftId], references: [id])
+  photo          String
+  items          Item[]
 }
 
 model Item {
   id        String @id() @default(uuid())
-  productId String
+  productId Int
+  name      String
   cardId    String
   card      Card   @relation(fields: [cardId], references: [id])
 }

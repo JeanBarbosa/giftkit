@@ -1,37 +1,21 @@
 import { Body, Controller, Post } from '@nestjs/common'
-import { ScratchcardsService } from 'src/services/scratchcards.services'
-import { Prisma } from '@prisma/client'
-import { MailService } from '../../mail/mail.service'
+import { CurrentUserID } from '../../utils/decorators/current-user-id.decorator'
+import { SurpriseData, SurprisegiftsService } from '../../services/surprisegifts.services'
 
-@Controller('scratchcards')
-export class ScratchcardsController {
+@Controller('surprisegift')
+export class SurprisegiftsController {
   constructor(
-    private readonly scratchcardsService: ScratchcardsService,
-    private readonly mailService: MailService,
+    private readonly scratchcardsService: SurprisegiftsService,
   ) { }
 
-  @Post('new')
+  @Post()
   create(
-    @Body() data: Prisma.ScratchcardUncheckedCreateInput
+    @Body() data: SurpriseData,
+    @CurrentUserID() userId: string
   ) {
-    const userId = "bb4c6f58-82aa-4f1e-b014-c63486a24e2e"
     return this.scratchcardsService.create({
       userId,
       ...data
-    })
-  }
-
-
-  @Post('send')
-  async send() {
-
-    const hash = 'dfsafasfsdafasdfsfa'
-
-    await this.mailService.newSurpriseGift({
-      to: 'programmer.jean@gmail.com',
-      data: {
-        hash,
-      },
     })
   }
 }
