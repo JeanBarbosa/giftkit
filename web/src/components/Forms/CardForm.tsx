@@ -83,7 +83,7 @@ export default function CardForm({ formStep, nextFormStep }: CardFormProps) {
       </CardBoxWrapper>
 
       <form onSubmit={(e) => e.preventDefault()}>
-        <Button disabled={isDisabled} title='Salvar e Enviar' onClick={handleSubmit} />
+        <Button disabled={isDisabled} title='Próximo' onClick={handleSubmit} />
       </form>
 
     </FormWrapper>

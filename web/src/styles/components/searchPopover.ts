@@ -4,6 +4,9 @@ import * as Popover from '@radix-ui/react-popover'
 export const PopoverContainer = styled('div', {
   display: 'flex',
   flexDirection: 'column',
+  backgroundColor: '$gray100',
+  borderRadius: '0.5rem',
+  padding: '0.8rem'
 })
 
 export const StyledContent = styled(Popover.Content, {
@@ -88,22 +91,23 @@ export const ProductSelected = styled('div', {
 
 export const PopoverClose = styled(Popover.Close, {
   fontFamily: 'inherit',
+  border: 'none',
   borderRadius: '100%',
   height: '25px',
   width: '25px',
   display: 'inline-flex',
   alignItems: 'center',
   justifyContent: 'center',
-  color: 'var(--violet11)',
+  color: '$red',
   position: 'absolute',
   top: '5px',
   right: '5px',
 
   '.PopoverClose:hover': {
-    backgroundColor: 'var(--violet4)'
+    backgroundColor: '$red'
   },
 
   '.PopoverClose:focus': {
-    boxShadow: '0 0 0 2px var(--violet7)'
+    boxShadow: '0 0 0 2px $red'
   }
 })

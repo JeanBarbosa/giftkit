@@ -30,7 +30,7 @@ type Category = {
   publicId: string,
 }
 
-type GetProductsResponse = {
+export type GetProductsResponse = {
   products: Product[],
   total: number,
   userCart: object,
@@ -60,8 +60,8 @@ export async function getCategories(page: number): Promise<GetCategoriesResponse
   }
 }
 
-export async function getProducts(page: number): Promise<GetProductsResponse> {
-  const { data } = await api.get('products', {
+export async function getProducts(page: number, category: string = ""): Promise<GetProductsResponse> {
+  const { data } = await api.get(`products?category=${category}`, {
     params: {
       page
     }
@@ -70,8 +70,8 @@ export async function getProducts(page: number): Promise<GetProductsResponse> {
   return data
 }
 
-export function useProducts(page: number) {
-  return useQuery(['products', page], () => getProducts(page), {
+export function useProducts(page: number, category?: string) {
+  return useQuery(['products', page], () => getProducts(page, category), {
     staleTime: 1000 * 60 * 10, // 10 minutos
   })
 }

@@ -62,7 +62,7 @@ export const Card = styled('div', {
   display: 'flex',
   flexDirection: 'column',
   height: '200px',
-  maxWidth: '130px',
+  width: '130px',
   backgroundColor: '$white',
   borderRadius: '0.4rem',
 

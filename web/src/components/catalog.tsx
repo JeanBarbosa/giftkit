@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useEffect, useState } from 'react'
 import { Input } from '@/components/Input'
 import RadioGroupCategories from '@/components/RadioGroupCategories'
 import Image from 'next/image'
@@ -6,6 +6,7 @@ import { useKeenSlider } from 'keen-slider/react'
 import 'keen-slider/keen-slider.min.css'
 import { useProducts } from '@/services/hooks/useProducts'
 import { Plus } from 'phosphor-react'
+import Link from 'next/link'
 import {
   CatalogContainer,
   CategoriesContainer,
@@ -14,7 +15,6 @@ import {
   Card,
   NavigationWrapper
 } from '@/styles/components/catalog'
-import Link from 'next/link'
 
 type ArrowProps = {
   isDisabled?: boolean,
@@ -35,7 +35,8 @@ type CatalogProps = {
 export default function Catalog({ onSelectProduct }: CatalogProps) {
 
   const [page, setPage] = useState(1)
-  const { data, isLoading, error } = useProducts(page)
+  const [category, setCategory] = useState("")
+  const { data, isLoading, error } = useProducts(page, category)
   const [currentSlide, setCurrentSlide] = useState(0)
   const [loaded, setLoaded] = useState(false)
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -63,7 +64,10 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
   return (
     <CatalogContainer>
       <CategoriesContainer>
-        <RadioGroupCategories />
+        {/* Hack para buscar por novas categorias */}
+        <RadioGroupCategories
+          onCategorySelected={(c) => { setCategory(c); setPage(Math.floor(Math.random() * 10000)) }}
+        />
       </CategoriesContainer>
       <ProductsContainer>
         <Input placeholder='pesquisar pelo nome' />
