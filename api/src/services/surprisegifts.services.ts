@@ -1,6 +1,7 @@
 import { Injectable } from '@nestjs/common'
 import { PrismaService } from '../database/prisma/prisma.service'
 import { MailService } from '../mail/mail.service'
+import { ConfigService } from '@nestjs/config'
 
 type Product = {
   id: number,
@@ -27,7 +28,8 @@ export class SurprisegiftsService {
 
   constructor(
     private readonly prismaService: PrismaService,
-    private readonly mailService: MailService
+    private readonly mailService: MailService,
+    private readonly configService: ConfigService
   ) { }
 
   async allSurpriseByUserId(userId: string) {
@@ -94,12 +96,13 @@ export class SurprisegiftsService {
         },
       })
 
-      const hash = description
-
       await this.mailService.newSurpriseGift({
         to: email,
         data: {
-          hash,
+          title,
+          url1: `${this.configService.get('app.frontendDomain')}/surprisebox`,
+          url2: `${this.configService.get('app.frontendDomain')}/surprisebox`,
+          url3: `${this.configService.get('app.frontendDomain')}/surprisebox`,
         },
       })
       return surprise

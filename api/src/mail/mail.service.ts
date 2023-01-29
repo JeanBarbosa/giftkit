@@ -10,22 +10,23 @@ export class MailService {
     private configService: ConfigService,
   ) { }
 
-  async newSurpriseGift(mailData: MailData<{ hash: string }>) {
+  async newSurpriseGift(mailData: MailData<{
+    title: string,
+    url1: string,
+    url2: string,
+    url3: string,
+  }>) {
     await this.mailerService.sendMail({
       to: mailData.to,
-      subject: 'common.confirmEmail',
-      text: `${this.configService.get('app.frontendDomain')}/confirm-email/${mailData.data.hash
-        } common.confirmEmail`,
+      subject: mailData.data.title,
+      text: `${this.configService.get('app.frontendDomain')}`,
       template: 'surprisegift',
       context: {
-        title: 'common.confirmEmail',
-        url: `${this.configService.get('app.frontendDomain')}/confirm-email/${mailData.data.hash
-          }`,
-        actionTitle: 'common.confirmEmail',
-        app_name: this.configService.get('app.name'),
-        text1: 'Trouble signing in?',
-        text2: 'Resetting your password is easy.',
-        text3: 'If you did not make this request then please ignore this email.',
+        title: mailData.data.title,
+        url1: mailData.data.url1,
+        url2: mailData.data.url2,
+        url3: mailData.data.url3,
+        text1: 'escolha entre os presentes surpresa',
       },
     })
   }

@@ -41,9 +41,10 @@ export default function Dashboard() {
           <Button title='criar presente surpresa' onClick={handleNewSurpriseGift} />
         </NewSurpriseGift>
         <ListSurpriseGiftContainer>
-          <h3>Presentes Surpresa enviados:</h3>
           {isLoading ? <p>carregando...</p> : error ? <p>Falha ao obter dados.</p> : (
             <ListSurpriseGiftContainer>
+              {data?.surprises && data?.surprises.length > 0 ?
+                <h3>Presentes Surpresa enviados:</h3> : ""}
 
               {
                 data?.surprises.map((item) => (
