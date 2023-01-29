@@ -36,7 +36,8 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
 
   const [page, setPage] = useState(1)
   const [category, setCategory] = useState("")
-  const { data, isLoading, error } = useProducts(page, category)
+  const [productName, setProductName] = useState("")
+  const { data, isLoading, error } = useProducts({ page, category, q: productName })
   const [currentSlide, setCurrentSlide] = useState(0)
   const [loaded, setLoaded] = useState(false)
   const [sliderRef, instanceRef] = useKeenSlider({
@@ -61,6 +62,12 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
     onSelectProduct(product)
   }
 
+  function handleOnChange(e: any) {
+    console.log(e.target.value)
+    setProductName(e.target.value)
+    setPage(Math.floor(Math.random() * 10000))
+  };
+
   return (
     <CatalogContainer>
       <CategoriesContainer>
@@ -70,7 +77,8 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
         />
       </CategoriesContainer>
       <ProductsContainer>
-        <Input placeholder='pesquisar pelo nome' />
+        <Input placeholder='pesquisar pelo nome' value={productName} onChange={handleOnChange}
+        />
         <NavigationWrapper>
           {isLoading ? <p>carregando</p> : error ? <p>Falha ao obter dados dos produtos</p> : (
             <CardsContainer ref={sliderRef} className="keen-slider">
@@ -99,7 +107,7 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
                   )
                 })
               }
-
+              <div className="keen-slider__slide"></div>
               {loaded && instanceRef.current && (
                 <>
                   <Arrow
@@ -115,8 +123,7 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
                       e.stopPropagation() || instanceRef.current?.next()
                     }
                     isDisabled={
-                      currentSlide ===
-                      instanceRef.current.track.details.slides.length - 1
+                      currentSlide === instanceRef.current.track.details.slides.length - 1
                     }
                   />
                 </>

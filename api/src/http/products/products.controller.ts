@@ -20,11 +20,12 @@ export class ProductsController {
 
   @Get()
   all(
-    @Query('category') category: string
+    @Query('q') q: string = "",
+    @Query('category') category: string = "",
   ): Observable<AxiosResponse<GetProductsResponse[]>> {
 
-    if (category) {
-      return this.apiService.findProductsByCategory(category)
+    if (category || q) {
+      return this.apiService.findProductsByCategory(q, category)
     }
 
     return this.apiService.allProducts()

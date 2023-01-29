@@ -81,8 +81,8 @@ export class ApiService {
       )
   }
 
-  findProductsByCategory(category: string): Observable<AxiosResponse<GetProductsResponse[]>> {
-    return this.httpService.get(`${this.baseUrl}/products?q=&category=${category}`)
+  findProductsByCategory(q: string, category: string): Observable<AxiosResponse<GetProductsResponse[]>> {
+    return this.httpService.get(`${this.baseUrl}/products?q=${q}&category=${category}`)
       .pipe(
         map((response) => {
           return response.data
