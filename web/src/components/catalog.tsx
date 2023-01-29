@@ -107,7 +107,11 @@ export default function Catalog({ onSelectProduct }: CatalogProps) {
                   )
                 })
               }
-              <div className="keen-slider__slide"></div>
+              <div className="keen-slider__slide">
+                {
+                  data?.products.length === 0 ? <p>Nenhum produto encontrado</p> : ""
+                }
+              </div>
               {loaded && instanceRef.current && (
                 <>
                   <Arrow

@@ -30,6 +30,14 @@ export class SurprisegiftsService {
     private readonly mailService: MailService
   ) { }
 
+  async allSurpriseByUserId(userId: string) {
+    return await this.prismaService.surprisegift.findMany({
+      where: {
+        userId
+      }
+    })
+  }
+
   async create(data: SurpriseData) {
     try {
       const { email, title, description, userId, deck } = data
