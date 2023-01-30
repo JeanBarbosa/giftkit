@@ -40,7 +40,7 @@ export const ContextButtonTrigger = styled('button', {
 export const PopoverArrow = styled(Popover.Arrow, {
   height: '1rem',
   width: '1.5rem',
-  fill: '#f8f8f8',
+  fill: '$blueDark',
 })
 
 export const PopoverListProducts = styled('div', {

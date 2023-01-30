@@ -44,13 +44,13 @@ export function SurpriseForm({ formStep, nextFormStep }: SurpriseFormProps) {
       <FormWrapper className={formStep === 0 ? 'showForm' : 'hideForm'}>
         <h2> Informações da Surpresa</h2>
         <form onSubmit={handleSubmit(handleNextForm)}>
-          <Input placeholder='E-mail' {...register("email")} />
+          <Input placeholder='E-mail do destinatário' {...register("email")} />
           <span>{errors.email?.message}</span>
 
-          <Input placeholder='title' {...register("title")} />
+          <Input placeholder='Title' {...register("title")} />
           <span>{errors.title?.message}</span>
 
-          <Input placeholder='descrição' {...register("description")} />
+          <Input placeholder='Descrição' {...register("description")} />
           <span>{errors.description?.message}</span>
 
           <Button title="Próximo" type='submit' />

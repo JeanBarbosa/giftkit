@@ -16,9 +16,14 @@ export const CategoriesContainer = styled('aside', {
 export const ProductsContainer = styled('div', {
   flex: '1',
   padding: '1rem',
-  backgroundColor: '#f8f8f8',
+  backgroundColor: '$blueDark',
   borderTopRightRadius: '0.5rem',
   borderBottomRightRadius: '0.5rem',
+  color: 'white',
+
+  input: {
+    color: 'white',
+  }
 })
 
 export const NavigationWrapper = styled('div', {

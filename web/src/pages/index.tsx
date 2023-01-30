@@ -62,9 +62,9 @@ export default function Home() {
           </h1>
 
           <p>
-            Faça a gestão de todos os seus brindes <br />
-            e produtos personalizados de maneira <br />
-            mais simples na nossa plataforma! 🧡
+            Faça o envio de presentes surpresa com os  <br />
+            seus brindes e produtos personalizados  <br />
+            de maneira mais simples na nossa plataforma! 🧡
           </p>
 
           <form onSubmit={handleSubmit(onSubmit)}>
