@@ -45,6 +45,10 @@ $ npm run dev
 
 ```
 
+Abrir MAILDEV <a href="http://localhost:1080/">http://localhost:1080/</a>
+
+Abrir FRONT END <a href="http://localhost:3000/">http://localhost:3000/</a>
+
 ## :information_source: Tecnologias usadas
 
 # Front end
