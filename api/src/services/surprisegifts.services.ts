@@ -86,7 +86,7 @@ export class SurprisegiftsService {
                 }
               },
               {
-                photo: deck.cardTwo[0].urlPhoto,
+                photo: deck.cardThree[0].urlPhoto,
                 items: {
                   create: cardThreeArray
                 }
@@ -94,20 +94,29 @@ export class SurprisegiftsService {
             ],
           }
         },
+        include: {
+          cards: true
+        }
       })
 
-      await this.mailService.newSurpriseGift({
-        to: email,
-        data: {
-          title,
-          url1: `${this.configService.get('app.frontendDomain')}/surprisebox`,
-          url2: `${this.configService.get('app.frontendDomain')}/surprisebox`,
-          url3: `${this.configService.get('app.frontendDomain')}/surprisebox`,
-        },
-      })
+      //obtém os ids dos cards e envia o email
+      if (surprise.cards.length > 0) {
+        const [cardOne, cardTwo, cardThree] = surprise.cards
+
+        await this.mailService.newSurpriseGift({
+          to: email,
+          data: {
+            title,
+            url1: `${this.configService.get('app.frontendDomain')}/surprisebox?id=${surprise.id}&cardId=${cardOne.id}`,
+            url2: `${this.configService.get('app.frontendDomain')}/surprisebox?id=${surprise.id}&cardId=${cardTwo.id}`,
+            url3: `${this.configService.get('app.frontendDomain')}/surprisebox?id=${surprise.id}&cardId=${cardThree.id}`,
+          },
+        })
+      }
+
       return surprise
     } catch (error) {
-
+      throw new Error(error)
     }
 
   }

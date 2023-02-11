@@ -48,7 +48,7 @@ export default function Dashboard() {
 
               {
                 data?.surprises.map((item) => (
-                  <SurpriseItem>
+                  <SurpriseItem key={item.id}>
                     <h4>{item.title}</h4>
                     <p> {item.emailRecipient}</p>
                     {item.selectedCardID ? <span className='open'>Presente aberto</span> : <span className='close'>Presente fechado</span>}

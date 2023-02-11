@@ -2,6 +2,7 @@ import { useQuery } from "react-query"
 import { api } from "../apiClient"
 
 type SurpriseGift = {
+  id: string
   title: string
   description: string
   emailRecipient: string
