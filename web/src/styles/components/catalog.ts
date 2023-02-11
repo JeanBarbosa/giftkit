@@ -84,6 +84,7 @@ export const Card = styled('div', {
     padding: '0.5rem',
 
     h4: {
+      color: '$blueDark',
       whiteSpace: 'nowrap',
       overflow: 'hidden',
       textOverflow: 'ellipsis'
