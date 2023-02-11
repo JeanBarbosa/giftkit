@@ -1,6 +1,6 @@
 import { Body, Controller, Get, Post } from '@nestjs/common'
 import { CurrentUserID } from '../../utils/decorators/current-user-id.decorator'
-import { SurpriseData, SurprisegiftsService } from '../../services/surprisegifts.services'
+import { SurpriseData, SurprisegiftsService, chosenGiftData } from '../../services/surprisegifts.services'
 
 @Controller('surprisegift')
 export class SurprisegiftsController {
@@ -14,13 +14,20 @@ export class SurprisegiftsController {
   }
 
   @Post()
-  create(
+  async create(
     @Body() data: SurpriseData,
     @CurrentUserID() userId: string
   ) {
-    return this.surprisegiftsService.create({
+    return await this.surprisegiftsService.create({
       userId,
       ...data
     })
+  }
+
+  @Post('chosenGift')
+  async chosenGift(
+    @Body() data: chosenGiftData,
+  ) {
+    return await this.surprisegiftsService.chosenGift(data)
   }
 }

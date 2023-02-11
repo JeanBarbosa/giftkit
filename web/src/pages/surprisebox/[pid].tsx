@@ -1,8 +1,33 @@
 import useWindowDimensions from '@/utils/useWindowDimensions'
+import { useRouter } from 'next/router'
 import Head from 'next/head'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import Confetti from 'react-confetti'
+import { api } from '@/services/apiClient'
+
+type item = {
+  cardId: string,
+  id: string,
+  name: string,
+  productId: number,
+}
+
+type card = {
+  id: string,
+  photo: string,
+  items: item[],
+}
+
+type supriseData = {
+  cards: card[],
+  description: string,
+  emailRecipient: string,
+  id: string,
+  selectedCardID: string,
+  title: string,
+  userId: string,
+}
 
 export default function SurpriseBox() {
 
@@ -11,6 +36,28 @@ export default function SurpriseBox() {
 
   const { height, width } = useWindowDimensions()
   const [open, setOpen] = useState(false)
+  const router = useRouter()
+  const { pid, cardId } = router.query
+  const [surprise, setSurprise] = useState({} as supriseData)
+
+  async function handleChosenGift() {
+    const response = await api.post('surprisegift/chosenGift', {
+      surpriseId: pid,
+      cardId: cardId,
+    })
+
+    const { data } = response
+    setSurprise(data)
+  }
+
+
+  useEffect(() => {
+    //salvar o cardID selecionado
+    //carregar os produtos do card
+    if (pid) {
+      handleChosenGift()
+    }
+  }, [pid, cardId])
 
   useEffect(() => {
     const present = document.querySelector('.present')
@@ -46,7 +93,13 @@ export default function SurpriseBox() {
         <div className="headline">Feliz Aniversário</div>
         {
           open ? (<div className="instructions">
-            Kit da BeUni camista  cadernos e blusa tricolor
+            {surprise.cards.map((card) => {
+              return (
+                surprise.selectedCardID !== card.id ? "" : card.items.map((item) => <span key={item.id}>
+                  {item.name} <br />
+                </span>)
+              )
+            })}
           </div>) : (
             <div className="instructions">
               Abra seu presente:

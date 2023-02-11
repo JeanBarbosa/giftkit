@@ -23,6 +23,11 @@ export type SurpriseData = {
   deck: Deck,
 }
 
+export type chosenGiftData = {
+  surpriseId: string,
+  cardId: string,
+}
+
 @Injectable()
 export class SurprisegiftsService {
 
@@ -38,6 +43,57 @@ export class SurprisegiftsService {
         userId
       }
     })
+  }
+
+  async chosenGift(data: chosenGiftData) {
+    try {
+      const { surpriseId, cardId } = data
+
+      const surprise = await this.prismaService.surprisegift.findUnique({
+        where: {
+          id: surpriseId
+        },
+        include: {
+          cards: {
+            include: {
+              items: true
+            }
+          }
+        }
+      })
+
+      if (!surprise) {
+        throw new Error("Presente não encontrado.")
+      }
+
+      //Verifica se ja foi selecionado o card e retorna o mesmo
+      if (surprise.selectedCardID) {
+        return surprise
+      }
+
+      const surpriseUpdated = await this.prismaService.surprisegift.update({
+        where: {
+          id: surpriseId
+        },
+        data: {
+          selectedCardID: cardId
+        },
+        include: {
+          cards: {
+            include: {
+              items: true
+            }
+          }
+        }
+      })
+
+      return surpriseUpdated
+
+    } catch (error) {
+      throw new Error(error)
+
+    }
+
   }
 
   async create(data: SurpriseData) {
@@ -107,9 +163,9 @@ export class SurprisegiftsService {
           to: email,
           data: {
             title,
-            url1: `${this.configService.get('app.frontendDomain')}/surprisebox?id=${surprise.id}&cardId=${cardOne.id}`,
-            url2: `${this.configService.get('app.frontendDomain')}/surprisebox?id=${surprise.id}&cardId=${cardTwo.id}`,
-            url3: `${this.configService.get('app.frontendDomain')}/surprisebox?id=${surprise.id}&cardId=${cardThree.id}`,
+            url1: `${this.configService.get('app.frontendDomain')}/surprisebox/${surprise.id}?cardId=${cardOne.id}`,
+            url2: `${this.configService.get('app.frontendDomain')}/surprisebox/${surprise.id}?cardId=${cardTwo.id}`,
+            url3: `${this.configService.get('app.frontendDomain')}/surprisebox/${surprise.id}?cardId=${cardThree.id}`,
           },
         })
       }
